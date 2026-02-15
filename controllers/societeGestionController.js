@@ -8,6 +8,7 @@ exports.CreationSG = async (req, res) => {
     effectif,
     siteWeb,
     adresse,
+    description,
   } = req.body;
   try {
     const exists = await SocieteGestion.findOne({ nom: nom });
@@ -24,6 +25,7 @@ exports.CreationSG = async (req, res) => {
       effectif,
       siteWeb,
       adresse,
+      description,
     });
     if (!nouvelleSoc) {
       return res
@@ -76,6 +78,7 @@ exports.UpDateSG = async (req, res) => {
     effectif,
     siteWeb,
     adresse,
+    description,
   } = req.body;
   try {
     const SG = await SocieteGestion.findOneAndUpdate(
@@ -89,6 +92,7 @@ exports.UpDateSG = async (req, res) => {
           effectif,
           siteWeb,
           adresse,
+          description,
         },
       },
       { runValidators: true, returnDocument: "after" },

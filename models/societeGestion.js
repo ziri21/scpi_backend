@@ -38,5 +38,8 @@ const societeGestionSchema = new mongoose.Schema({
   actMaj: {
     type: String,
   },
+  description: {
+    type: String,
+  },
 });
 module.exports = mongoose.model("SocieteGestion", societeGestionSchema);
