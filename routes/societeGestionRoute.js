@@ -7,10 +7,11 @@ const {
   UpDateSG,
   DeleteSG,
 } = require("../controllers/societeGestionController");
-router.post("/creationSG", CreationSG);
+const { protect } = require("../middleware/authMiddleware");
+router.post("/creationSG", protect, CreationSG);
 router.get("/getAllSG", RecuperationSGs);
 router.get("/getSG/:id", RecupererSGParId);
-router.put("/updateSG/:id", UpDateSG);
-router.delete("/deleteSG/:id", DeleteSG);
+router.put("/updateSG/:id", protect, UpDateSG);
+router.delete("/deleteSG/:id", protect, DeleteSG);
 
 module.exports = router;
