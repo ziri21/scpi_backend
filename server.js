@@ -10,7 +10,7 @@ const app = express();
 app.use(cors());
 app.use(express.json());
 try {
-  await connectDB();
+  connectDB();
   app.use("/admin", adminRouter);
   app.use("/societeGestion", SGRouter);
   app.use("/scpi", scpiRouter);
