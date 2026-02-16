@@ -1,6 +1,6 @@
 const express = require("express");
 const cors = require("cors");
-const dotenv = require("dotenv").config();
+require("dotenv").config();
 const adminRouter = require("./routes/adminRoute.js");
 const SGRouter = require("./routes/societeGestionRoute.js");
 const scpiRouter = require("./routes/scpiRoute.js");

@@ -41,6 +41,7 @@ exports.CreationSG = async (req, res) => {
 };
 exports.RecuperationSGs = async (req, res) => {
   try {
+    console.log("readyState before find =", mongoose.connection.readyState);
     const socGs = await SocieteGestion.find();
 
     return res.status(200).json({
