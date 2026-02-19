@@ -10,7 +10,6 @@ const ScpiSchema = new mongoose.Schema({
   SG_id: {
     type: mongoose.Schema.Types.ObjectId,
     ref: "SocieteGestion",
-    required: true,
   },
 
   tauxDistribution: {
@@ -24,14 +23,14 @@ const ScpiSchema = new mongoose.Schema({
   },
   categorie: {
     type: String,
-    required: true,
+
     trim: true,
     enum: ["rendement", "fiscale", "plus-value", "diversifiee"],
     default: "rendement",
   },
   capital: {
     type: String,
-    required: true,
+
     trim: true,
     enum: ["variable", "fixe"],
   },
@@ -43,7 +42,7 @@ const ScpiSchema = new mongoose.Schema({
   },
   paysInvestissement: {
     type: String,
-    required: true,
+
     trim: true,
     maxLength: 60,
   },
