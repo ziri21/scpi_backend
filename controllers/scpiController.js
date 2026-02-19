@@ -123,26 +123,42 @@ exports.getScpiById = async (req, res) => {
   }
 };
 exports.getSpecificScpi = async (req, res) => {
-  const {
-    nom,
-    SG_id,
-    tauxDistribution,
-    prixPart,
-    categorie,
-    capital,
-    frequenceDistribution,
-    paysInvestissement,
-  } = req.query;
+  const { nom, societeGestionNom, categorie, paysInvestissement } = req.query;
+
   const filter = {};
-  if (nom) filter.nom = nom;
-  if (SG_id) filter.SG_id = SG_id;
-  if (tauxDistribution) filter.tauxDistribution = tauxDistribution;
-  if (prixPart) filter.prixPart = prixPart;
-  if (categorie) filter.categorie = categorie;
-  if (capital) filter.capital = capital;
-  if (paysInvestissement) filter.paysInvestissement = paysInvestissement;
-  if (frequenceDistribution)
-    filter.frequenceDistribution = frequenceDistribution;
-  const scpi = await Scpi.find(filter);
-  return res.status(200).json(scpi);
+
+  try {
+    if (nom) {
+      filter.nom = { $regex: nom, $options: "i" };
+    }
+
+    if (categorie) {
+      filter.categorie = categorie;
+    }
+
+    if (paysInvestissement) {
+      filter.paysInvestissement = {
+        $regex: paysInvestissement,
+        $options: "i",
+      };
+    }
+
+    if (societeGestionNom) {
+      const sg = await societeGestion.findOne({
+        nom: { $regex: societeGestionNom, $options: "i" },
+      });
+
+      if (sg) {
+        filter.SG_id = sg._id;
+      } else {
+        return res.status(200).json([]);
+      }
+    }
+
+    const scpi = await Scpi.find(filter).populate("SG_id");
+
+    res.status(200).json(scpi);
+  } catch (err) {
+    res.status(500).json({ message: err.message });
+  }
 };
