@@ -129,3 +129,11 @@ exports.DeleteSG = async (req, res) => {
     return res.status(500).json(err.message);
   }
 };
+exports.getNameSG = async (req, res) => {
+  try {
+    const noms = await SocieteGestion.distinct("nom");
+    res.json(noms);
+  } catch (err) {
+    res.status(500).json({ message: err.message });
+  }
+};
